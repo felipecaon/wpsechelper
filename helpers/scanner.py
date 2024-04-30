@@ -16,7 +16,7 @@ admin_init_table.set_style(SINGLE_BORDER)
 shortnames_table = PrettyTable(TABLE_TITLE, header_style="upper", title="SHORTNAMES", align="l")
 shortnames_table.set_style(SINGLE_BORDER)
 
-general_information_table = PrettyTable(("Information", "Bool"), header_style="upper", title="GENERAL INFORMATION", align="l")
+general_information_table = PrettyTable(("Information", "Bool", "keywords"), header_style="upper", title="GENERAL INFORMATION", align="l")
 general_information_table.set_style(SINGLE_BORDER)
 
 def extract_ajax_hooks(file_content, file):
@@ -51,11 +51,11 @@ def extract_shortnames(file_content, file):
         function = match[10]
         shortnames_table.add_row([shortname, function, file])
 
-def check_if_has_rest_routes(file_content, file):
+def check_if_has_rest_routes(file_content):
     regex_pattern = r"register_rest_route"
-    match = re.find(pattern=regex_pattern, string=file_content)
+    match = re.findall(pattern=regex_pattern, string=file_content)
     if match:
-        general_information_table.add_row(["Has custom rest endpoints", "yes"])
+        general_information_table.add_row(["Has custom REST endpoints", "yes", "register_rest_route"])
 
 # Analyze the file and extract interesting information
 def analyze(file_content, file):
@@ -63,6 +63,7 @@ def analyze(file_content, file):
     extract_admin_actions(file_content, file)
     extract_admin_init(file_content, file)
     extract_shortnames(file_content, file)
+    check_if_has_rest_routes(file_content)
 
 def scan(args):
     
@@ -81,8 +82,18 @@ def scan(args):
                 file_content = open(file_path, mode="r", encoding="latin1").read()
                 analyze(file_content, file)
 
-    print(ajax_hooks_table)
-    print(admin_actions_table)
-    print(admin_init_table)
-    print(shortnames_table)
-    print(general_information_table)
+
+    if len(ajax_hooks_table.rows):
+        print(ajax_hooks_table)
+
+    if len(admin_actions_table.rows):
+        print(admin_actions_table)
+
+    if len(admin_init_table.rows):
+        print(admin_init_table)
+
+    if len(shortnames_table.rows):
+        print(shortnames_table)
+
+    if len(general_information_table.rows):
+        print(general_information_table)
