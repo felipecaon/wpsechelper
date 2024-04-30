@@ -16,6 +16,9 @@ admin_init_table.set_style(SINGLE_BORDER)
 shortnames_table = PrettyTable(TABLE_TITLE, header_style="upper", title="SHORTNAMES", align="l")
 shortnames_table.set_style(SINGLE_BORDER)
 
+general_information_table = PrettyTable(("Information", "Bool"), header_style="upper", title="GENERAL INFORMATION", align="l")
+general_information_table.set_style(SINGLE_BORDER)
+
 def extract_ajax_hooks(file_content, file):
     regex_pattern = r"(add_action(\s{0,}\S{0,})\((\s{0,}\S{0,})(\"|')(wp_ajax_[a-zA-Z0-9_-]+))(?!{)(\"|')(\s{0,}\S{0,}),(.+)(\"|')(\s{0,})([a-zA-Z0-9_-]+)(\s{0,})(\"|')"
     matches = re.findall(pattern=regex_pattern, string=file_content)
@@ -48,9 +51,14 @@ def extract_shortnames(file_content, file):
         function = match[10]
         shortnames_table.add_row([shortname, function, file])
 
+def check_if_has_rest_routes(file_content, file):
+    regex_pattern = r"register_rest_route"
+    match = re.find(pattern=regex_pattern, string=file_content)
+    if match:
+        general_information_table.add_row(["Has custom rest endpoints", "yes"])
 
-# Analyse the file and extract interesting information
-def analyse(file_content, file):
+# Analyze the file and extract interesting information
+def analyze(file_content, file):
     extract_ajax_hooks(file_content, file)
     extract_admin_actions(file_content, file)
     extract_admin_init(file_content, file)
@@ -71,9 +79,10 @@ def scan(args):
             if file.endswith('.php'):
                 file_path = os.path.join(root, file)
                 file_content = open(file_path, mode="r", encoding="latin1").read()
-                analyse(file_content, file)
+                analyze(file_content, file)
 
     print(ajax_hooks_table)
     print(admin_actions_table)
     print(admin_init_table)
     print(shortnames_table)
+    print(general_information_table)
