@@ -70,7 +70,7 @@ def scan(args):
         for file in files:
             if file.endswith('.php'):
                 file_path = os.path.join(root, file)
-                file_content = open(file_path, mode="r").read()
+                file_content = open(file_path, mode="r", encoding="latin1").read()
                 analyse(file_content, file)
 
     print(ajax_hooks_table)
