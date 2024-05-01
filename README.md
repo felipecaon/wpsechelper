@@ -42,4 +42,4 @@ options:
 
 ## Output
 
-[![Output sample](output.png)]
+![Output sample](output.png)
