@@ -4,7 +4,7 @@ Friendly helper tool to extract intesresting information from a WordPress plugin
 
 ## Pre-Work:
 
-This script is based on the previous works of WpBullet, by OWASP.
+This script is based on the previous works of WPBullet, by OWASP.
 
 ## Setup
 
@@ -39,3 +39,7 @@ options:
   -p PATH, --path PATH  Path to plugin to analyze
   --version             Show version number
 ```
+
+## Output
+
+[![Output sample](output.png)]
