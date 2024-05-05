@@ -98,10 +98,8 @@ def analyze(file_content, file):
     check_if_has_admin_menu_pages(file_content)
     check_if_has_admin_submenu_pages(file_content)
 
-def scan(args):
+def scan(path_to_plugin):
     
-    path_to_plugin = args.path
-
     if not os.path.exists(path_to_plugin):
         print("Path does not exists, provide an existing path")
         exit(0)

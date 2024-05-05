@@ -161,3 +161,8 @@ cython_debug/
 
 playground.py
 snyk
+
+plugin_source_codes/*
+plugin_source_codes/
+source_codes/
+source_codes/*
