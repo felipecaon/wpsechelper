@@ -30,14 +30,14 @@ python3 wpsechelper.py -h
 ```
 
 ```
-usage: wpsechelper.py [-h] [-p PATH] [--version]
+usage: wpsechelper.py [-h] [-p PATH] [-s SLUG]
 
 WPSecHelper - Find WordPress plugins security issues faster
 
 options:
   -h, --help            show this help message and exit
   -p PATH, --path PATH  Path to plugin to analyze
-  --version             Show version number
+  -s SLUG, --slug SLUG  Downloads plugin by slug and triggers analisys
 ```
 
 ## Output
