@@ -1,2 +1,8 @@
+certifi==2024.2.2
+charset-normalizer==3.3.2
+colored==2.2.4
+idna==3.7
 prettytable==3.10.0
+requests==2.31.0
+urllib3==2.2.1
 wcwidth==0.2.13
