@@ -22,9 +22,9 @@ def main():
 
     args = parser.parse_args()
 
-    if args.path or args.slug is None:
+    if not args.path and not args.slug:
         argparse.ArgumentParser.print_usage(parser)
-        exit(1)
+        exit(0)
 
     if args.slug:
         slug = args.slug

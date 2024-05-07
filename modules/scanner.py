@@ -101,7 +101,7 @@ def analyze(file_content, file):
 def scan(path_to_plugin):
     
     if not os.path.exists(path_to_plugin):
-        print("Path does not exists, provide an existing path")
+        print(f"{Fore.red}ERR: Path does not exists, provide an existing path{Style.reset}")
         exit(0)
 
     # Checks every file of the plugin

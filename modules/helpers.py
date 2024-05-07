@@ -12,7 +12,7 @@ def get_plugin_information(slug):
         active_installs = data['active_installs']
         version = data['version']
     else:
-        sys.exit("Error: Failed to retrieve data. Status code: " + str(response.status_code))
+        sys.exit(f"{Fore.red}ERR: Failed to retrieve data. Status code: " + str(response.status_code) + f"{Style.reset}")
 
     return download_link, active_installs, version
 
@@ -43,6 +43,6 @@ def download(slug, extract_zip_file):
                 print(f"====> Source code path {Fore.green}source_codes/{slug}{Style.reset}\n")
                 plugin_source_code_path = f"source_codes/{slug}"
             else:
-                sys.exit("Failed to download the file. Status code:", response.status_code)
+                sys.exit(f"{Fore.red}ERR: Failed to download the file. Status code:" + response.status_code + f"{Style.reset}")
 
     return plugin_source_code_path
