@@ -23,7 +23,8 @@ general_information_table.set_style(SINGLE_BORDER)
 general_information_table_control = {
     "has_rest_routes": False,
     "has_admin_menu_pages": False,
-    "has_admin_submenu_pages": False
+    "has_admin_submenu_pages": False,
+    "uses_sprintf": False
 }
 
 def extract_ajax_hooks(file_content, file):
@@ -88,6 +89,16 @@ def check_if_has_admin_submenu_pages(file_content):
         general_information_table.add_row(["Has admin submenu pages", "add_submenu_page"])
         general_information_table_control["has_admin_submenu_pages"] = True
 
+def check_if_uses_sprintf(file_content):
+    if general_information_table_control["uses_sprintf"]:
+        return 
+    
+    regex_pattern = r"sprintf"
+    match = re.findall(pattern=regex_pattern, string=file_content)
+    if match:
+        general_information_table.add_row(["Uses sprintf - After placeholder, it can lead to XSS", "sprintf"])
+        general_information_table_control["uses_sprintf"] = True
+
 # Analyze the file and extract interesting information
 def analyze(file_content, file):
     extract_ajax_hooks(file_content, file)
@@ -97,6 +108,7 @@ def analyze(file_content, file):
     check_if_has_rest_routes(file_content)
     check_if_has_admin_menu_pages(file_content)
     check_if_has_admin_submenu_pages(file_content)
+    check_if_uses_sprintf(file_content)
 
 def scan(path_to_plugin):
     
